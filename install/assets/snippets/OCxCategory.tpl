@@ -1,5 +1,5 @@
 /**
-     * OCxCategory Snippet 1.0
+     * OCxCategory
      *
 	 * Display Open Cart 2 Categories in MODX Evolution
      *
