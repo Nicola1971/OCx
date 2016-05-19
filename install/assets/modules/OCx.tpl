@@ -14,7 +14,7 @@
 /*
 
 &oc_db_hostname=db_hostname;string;localhost &oc_db_username=db_username;string;root &oc_db_password=db_password;string &oc_db_database=db_databas;string;opencart2 &oc_shop_url=shop_url;string;http://localhost/opencart2;
-&oc_amazon=amazon;string;amazon.it &oc_affiliate_amazon_tag=amazon affiliate tag;string;yourtag-21
+&oc_amazon=amazon;string;amazon.it &oc_affiliate_amazon_tag=amazon affiliate tag;string;ideeshop-21
 */
 if (!isset($oc_db_hostname)) {
     echo "Please set module configuration";
@@ -38,12 +38,15 @@ switch ($_GET['action']) {
     case 'get':
                 $page = isset($_POST['page']) ? intval($_POST['page']) : 1;
                 $rows = isset($_POST['rows']) ? intval($_POST['rows']) : 10;
+				$sort = isset($_POST['sort']) ? strval($_POST['sort']) : 'order_id';
+				$order = isset($_POST['order']) ? strval($_POST['order']) : 'asc';
                 $offset = ($page-1)*$rows;
                 $result = array();
                        
-                $count = mysqli_query($db_server, "select count(*) from oc_order");
-                $result["total"] = $count;
-                $rs = mysqli_query($db_server, "select * from oc_order limit $offset,$rows");
+                $rs = mysqli_query($db_server, "select count(*) from oc_order");
+                $row = mysqli_fetch_row($rs);
+				$result["total"] = $row[0];
+                $rs = mysqli_query($db_server, "select * from oc_order order by $sort $order limit $offset,$rows");
                
                 $items = array();
                 while($row = mysqli_fetch_array($rs)){
@@ -102,17 +105,17 @@ switch ($_GET['action']) {
                         rownumbers="true" fitColumns="true" singleSelect="true">
                 <thead>
                         <tr>
-                            <th field="order_id" width="auto">oirder id</th>   
+                            <th field="order_id" width="auto" sortable="true">order id</th>   
 							<th field="firstname" width="auto">firstname</th>
                                       <th field="lastname" width="auto">lastname</th>
                                 <th field="email" width="auto">email</th>
                                 <th field="telephone" width="auto">telephone</th>
                                       <th field="fax" width="auto">fax</th>
-                                    <th field="total" width="auto">total</th>
+                                    <th field="total" width="auto" sortable="true">total</th>
                                 <th field="currency_code" width="auto">currency</th>
                                       <th field="order_status_id" width="auto">status</th>
-                                     <th field="date_added" width="auto">date added</th>
-                                     <th field="date_modified" width="auto">date modified</th>
+                                     <th field="date_added" width="auto" sortable="true">date added</th>
+                                     <th field="date_modified" width="auto" sortable="true">date modified</th>
                         </tr>
                 </thead>
         </table>
