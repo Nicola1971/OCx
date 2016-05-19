@@ -14,7 +14,7 @@
 /*
 
 &oc_db_hostname=db_hostname;string;localhost &oc_db_username=db_username;string;root &oc_db_password=db_password;string &oc_db_database=db_databas;string;opencart2 &oc_shop_url=shop_url;string;http://localhost/opencart2;
-&oc_amazon=amazon;string;amazon.it &oc_affiliate_amazon_tag=amazon affiliate tag;string;ideeshop-21
+&oc_amazon=amazon;string;amazon.it &oc_affiliate_amazon_tag=amazon affiliate tag;string;yourtag-21
 */
 if (!isset($oc_db_hostname)) {
     echo "Please set module configuration";
