@@ -218,21 +218,20 @@ switch ($_GET['action']) {
                         rownumbers="true" fitColumns="true" singleSelect="true">
                 <thead>
                         <tr>
-                            <th sortable="true" field="order_id" width="auto">order id</th>   
-							<th sortable="true" field="firstname" width="auto">firstname</th>
-                                      <th sortable="true" field="lastname" width="auto">lastname</th>
-                                    <th sortable="true" field="total" width="auto">total</th>
+                                    <th sortable="true" field="order_id" width="auto">order id</th> 
+                                     <th sortable="true" field="date_added" width="auto">date added</th>  
+                                     <th sortable="true" field="name" width="auto">status</th>
+                                     <th sortable="true" field="total" width="auto">total</th>
                                 <th sortable="true" field="currency_code" width="auto">currency</th>
 							 <th sortable="true" field="payment_method" width="auto">method</th>
-                                      <th sortable="true" field="name" width="auto">status</th>
-                                     <th sortable="true" field="date_added" width="auto">date added</th>
-							        <th sortable="true" field="date_modified" width="auto">date modified</th>
+                                    <th sortable="true" field="firstname" width="auto">firstname</th>
+                                     <th sortable="true" field="lastname" width="auto">lastname</th>                      
+
                                      <th sortable="true" field="email" width="auto">email</th>
                                       <th sortable="true" field="telephone" width="auto">telephone</th>
 							         <th sortable="true" field="payment_address_1" width="auto">address</th>
                                      <th sortable="true" field="payment_city" width="auto">city</th>
                                      <th sortable="true" field="payment_postcode" width="auto">postcode</th>
-							        <th sortable="true" field="payment_country" width="auto">country</th>
                         </tr>
                 </thead>
         </table>
