@@ -107,7 +107,7 @@ switch ($_GET['action']) {
                 $rs = mysqli_query($db_server, "select count(*) from oc_category_description where " . $where);
                 $row = mysqli_fetch_row($rs);
 				$result["total"] = $row[0];
-                $rs = mysqli_query($db_server, "select * from oc_category_description where " . $where . "  order by $sort $order limit $offset,$rows");
+                $rs = mysqli_query($db_server, "select * from oc_category_description where " . $where . "  group by category_id order by $sort $order limit $offset,$rows");
                
                 $items = array();
                 while($row = mysqli_fetch_array($rs)){
