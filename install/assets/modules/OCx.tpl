@@ -115,7 +115,7 @@ switch ($_GET['action']) {
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="keywords" content="jquery,ui,easy,easyui,web">
         <meta name="description" content="easyui help you build your web page easily!">
-        <title>Gestione Prodotti Amazon Affiliate</title>
+        <title>OCX</title>
 		        <link rel="stylesheet" type="text/css" href="http://www.jeasyui.com/easyui/themes/bootstrap/easyui.css">
         <link rel="stylesheet" type="text/css" href="http://www.jeasyui.com/easyui/themes/bootstrap/datagrid.css">
 	   <link rel="stylesheet" type="text/css" href="http://www.jeasyui.com/easyui/themes/bootstrap/tabs.css">
