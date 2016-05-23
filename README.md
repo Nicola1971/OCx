@@ -18,10 +18,10 @@ http://www.tattoocms.it/extras/snippets/ocx-opencart-modx-evolution.html
 
 ###  OCx Module Features:
 
-* Display and search orders
-* Display and search products
-* Display and search categories
-* Display and search customers
+* Display and search orders inside MODX Manager
+* Display and search products inside MODX Manager
+* Display and search categories inside MODX Manager
+* Display and search customers inside MODX Manager
 
 ![ocx](https://raw.githubusercontent.com/Nicola1971/training-materials/master/Images/ocx/ocx-module-products.jpg)
 
