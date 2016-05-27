@@ -7,15 +7,14 @@
  * @author	Nicola Lambathakis
  * @category	module
  * @internal	@modx_category OCx
- * @internal	@properties &oc_db_hostname=db_hostname;string;localhost &oc_db_username=db_username;string;root &oc_db_password=db_password;string &oc_db_database=db_databas;string;opencart2 &oc_shop_url= Opencart url;string;http://localhost/opencart2 &oc_image_folder=Opencart images folder;string;image/ &oc_show_images=Show products images;list;remote,local,no;remote &oc_shop_lang=shop language ID;string;1 &oc_amazon=amazon;string;amazon.it &oc_affiliate_amazon_tag=amazon affiliate tag;string;yourtag-21
+ * @internal	@properties &oc_db_hostname=db_hostname;string;localhost &oc_db_username=db_username;string;root &oc_db_password=db_password;string &oc_db_database=db_databas;string;opencart2 &oc_shop_url= Opencart url;string;http://localhost/opencart2 &oc_image_folder=Opencart images folder;string;image/ &oc_show_images=Show products images;list;remote,local;remote &oc_shop_lang=shop language ID;string;1 &oc_amazon=amazon;string;amazon.it &oc_affiliate_amazon_tag=amazon affiliate tag;string;yourtag-21
  * @license 	http://www.gnu.org/copyleft/gpl.html GNU Public License (GPL)
  */
 
 /* OCx module */
 /*
-
-&oc_db_hostname=db_hostname;string;localhost &oc_db_username=db_username;string;root &oc_db_password=db_password;string &oc_db_database=db_databas;string;opencart2 &oc_shop_url= Opencart url;string;http://localhost/opencart2 &oc_image_folder=Opencart images folder;string;image/ &oc_show_images=Show products images;list;remote,local,no;remote &oc_shop_lang=shop language ID;string;1 &oc_amazon=amazon;string;amazon.it &oc_affiliate_amazon_tag=amazon affiliate tag;string;yourtag-21
-*/
+&oc_db_hostname=db_hostname;string;localhost &oc_db_username=db_username;string;root &oc_db_password=db_password;string &oc_db_database=db_databas;string;opencart2 &oc_shop_url= Opencart url;string;http://localhost/opencart2 &oc_image_folder=Opencart images folder;string;image/ &oc_show_images=Show products images;list;remote,local;remote &oc_shop_lang=shop language ID;string;1 &oc_amazon=amazon;string;amazon.it &oc_affiliate_amazon_tag=amazon affiliate tag;string;yourtag-21
+ * */
 global $modx;
 if (!defined('IN_MANAGER_MODE') || (defined('IN_MANAGER_MODE') && (!IN_MANAGER_MODE || IN_MANAGER_MODE == 'false'))) die();
 $theme = $modx->config['manager_theme'];
@@ -70,7 +69,7 @@ if(local == $show_images)	{
 $oc_img_path = "../assets/images/" . $subfolders[5] . "/" . $subfolders[6] . "/";
 }
 if(no == $show_images)	{
-$oc_img_path = "<img src='../assets/modules/ocx/noimage.png' height='42' width='42'>";
+$oc_img_path = "../assets/modules/ocx/images/noimage.png' height='42' width='42'>";
 
 }	
 /******************************************************************/
@@ -186,7 +185,7 @@ switch ($_GET['action']) {
 	   <link rel="stylesheet" type="text/css" href="../assets/modules/ocx/easyui/themes/bootstrap/tabs.css">
 	  <link rel="stylesheet" type="text/css" href="../assets/modules/ocx/easyui/themes/icon.css">
 	 <link rel="stylesheet" type="text/css" href="media/style/<?php echo $theme;?>/style.css" />
-
+ 
        
         <script type="text/javascript" src="../assets/modules/ocx/jquery-1.9.1.min.js"></script>
         <script type="text/javascript" src="../assets/modules/ocx/easyui/jquery.easyui.min.js"></script>
@@ -235,7 +234,7 @@ switch ($_GET['action']) {
     <script>
     function formatUrl(val,row){
     var href = '<?php echo $shop_url;?>/index.php?route=product/product&product_id='+row.product_id;
-    return '<a target="_blank" href="' + href + '">View on store</a>';
+    return '<a target="_blank" href="' + href + '"><img src="../assets/modules/ocx/images/preview.png" style="vertical-align: middle;"></a></li></ul>';
 }
 
 </script>
@@ -258,7 +257,7 @@ switch ($_GET['action']) {
     <span>email:</span>
     <input id="email" style="line-height:26px;border:1px solid #ccc">
 
-    <a href="#" class="actionButtons easyui-linkbutton" plain="true" onclick="doSearch()">Search</a>
+    <a href="#" class="easyui-linkbutton" plain="true" onclick="doSearch()">Search</a>
 </div>
 		
      <table id="gor"  class="easyui-datagrid"
@@ -308,7 +307,7 @@ switch ($_GET['action']) {
                                 <th sortable="true" field="quantity" width="auto">quantity</th>
                                      <th sortable="true" field="date_added" width="auto">date added</th>
                                      <th sortable="true" field="date_modified" width="auto">date modified</th>
-                                      <th field="dw" formatter="formatUrl" width="auto">view details</th>
+                                      <th field="dw" formatter="formatUrl" width="auto">view</th>
           
                         </tr>
                 </thead>
