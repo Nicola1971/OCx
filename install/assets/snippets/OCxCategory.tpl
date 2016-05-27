@@ -10,8 +10,9 @@
  * @license 	http://www.gnu.org/copyleft/gpl.html GNU Public License (GPL)
  */
 	/**
+	/**
     Sample call
-[[OCxCategory? &cat=`3` &opencartTpl=`opencartTpl` &limit=`50` &orderdir=`DESC` &orderby=`product_id`]]
+[[OCxCategory? &cat=`3` &opencartTpl=`opencartTpl` &fetchimages=`0` &limit=`50` &orderdir=`DESC` &orderby=`product_id`]]
 */
 
 	/*define snippet params*/
@@ -22,6 +23,7 @@ $trim = (isset($trim)) ? $trim : '200';
 $orderdir = (isset($orderdir)) ? $orderdir : 'DESC';
 $orderby = (isset($orderby)) ? $orderby : 'product_id';
 
+if(!function_exists('substrwords')) {	
 function substrwords($text, $maxchar, $end='...') {
     if (strlen($text) > $maxchar || $text == '') {
         $words = preg_split('/\s/', $text);      
@@ -44,9 +46,7 @@ function substrwords($text, $maxchar, $end='...') {
     }
     return $output;
 }
-
-
-
+}
 
 /**********************/
 	/***********/
@@ -55,8 +55,8 @@ Funcion fetch images
 	credits: 
 http://www.intechgrity.com/automatically-copy-images-png-jpeg-gif-from-remote-server-http-to-your-local-server-using-php/#
 */
-	
-function citg_fetch_image($img_url, $store_dir = 'assets/images', $store_dir_type = 'relative', $overwrite = false, $pref = false, $debug = true) {
+if(!function_exists('itg_fetch_image')) {		
+function itg_fetch_image($img_url, $store_dir = 'assets/images', $store_dir_type = 'relative', $overwrite = false, $pref = false, $debug = true) {
     //first get the base name of the image
     $i_name = explode('.', basename($img_url));
     $i_name = $i_name[0];
@@ -165,6 +165,7 @@ $remotepath = $urlparts['path'].'?'.$urlparts['query'];
  
     return '';
 }
+	}
 //end fetch images
 /*****************/
 
@@ -201,7 +202,7 @@ while($row1 = mysqli_fetch_array( $result1 )) {
 	}
 	else 
 	if($fetchimages == '1') {
-	$oc_image = citg_fetch_image($remote_image);
+	$oc_image = itg_fetch_image($remote_image);
 }
   }
 

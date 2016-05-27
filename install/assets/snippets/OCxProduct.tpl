@@ -18,8 +18,8 @@
 $opencartTpl = (isset($opencartTpl)) ? $opencartTpl : 'opencartTpl';
 $fetchimages = (isset($fetchimages)) ? $fetchimages : '0'; 
 
-
-function substrwords1($text, $maxchar, $end='...') {
+if(!function_exists('substrwords')) {	
+function substrwords($text, $maxchar, $end='...') {
     if (strlen($text) > $maxchar || $text == '') {
         $words = preg_split('/\s/', $text);      
         $output = '';
@@ -41,6 +41,7 @@ function substrwords1($text, $maxchar, $end='...') {
     }
     return $output;
 }
+	}
 $trim = (isset($trim)) ? $trim : '200';
 
 /**********************/
@@ -50,7 +51,7 @@ Funcion fetch images
 	credits: 
 http://www.intechgrity.com/automatically-copy-images-png-jpeg-gif-from-remote-server-http-to-your-local-server-using-php/#
 */
-	
+if(!function_exists('itg_fetch_image')) {	
 function itg_fetch_image($img_url, $store_dir = 'assets/images', $store_dir_type = 'relative', $overwrite = false, $pref = false, $debug = true) {
     //first get the base name of the image
     $i_name = explode('.', basename($img_url));
@@ -160,6 +161,7 @@ $remotepath = $urlparts['path'].'?'.$urlparts['query'];
  
     return '';
 }
+}
 //end fetch images
 /*****************/
 
@@ -199,7 +201,7 @@ while($row0 = mysqli_fetch_array( $result0 )) {
         $htmldescription = $row2['description'];
         $description = html_entity_decode($htmldescription);
 		$flat_description = strip_tags($description);
-		$short_description = substrwords1($flat_description,$trim);
+		$short_description = substrwords($flat_description,$trim);
 
  // oc product price
         $result3 = mysqli_query($db_server, "SELECT DISTINCT * FROM oc_product WHERE product_id IN ($id) GROUP BY product_id");
