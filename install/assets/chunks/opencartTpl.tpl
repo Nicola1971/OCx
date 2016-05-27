@@ -8,7 +8,7 @@
  */
 <div class="row blog-post margin-bottom-10">
 <div class="col-md-5">
-<img class="img-responsive img-rounded img-thumbnail" src="[+ocshop_url+]/image/[+ocimage+]" alt="[+ocname+]">
+<img class="img-responsive img-rounded img-thumbnail" src="[+ocimage+]" alt="[+ocname+]">
 </div>
 <div class="col-md-7">
 	<a href="[+ocproduct_alias_url+]" title="[+ocname+]"><h3>[+ocname+]</h3></a>
