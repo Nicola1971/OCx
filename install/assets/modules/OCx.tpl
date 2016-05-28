@@ -2,7 +2,7 @@
  * OCx
  *
  * OCx Module - Open Cart Dashboard
- * @author	Nicola Lambathakis
+ * @author      Author: Nicola Lambathakis http://www.tattoocms.it/
  * @version 1.6 RC
  * @category	module
  * @internal	@modx_category OCx
