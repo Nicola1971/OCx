@@ -3,9 +3,8 @@
      *
 	 * Display Open Cart Categories in MODX Evolution
      *
-     * @author Nicola Lambathakis
-     * @version 1.6
-     * @author	Nicola Lambathakis
+     * @author      Author: Nicola Lambathakis http://www.tattoocms.it/
+     * @version 1.6.2
      * @internal	@modx_category OCx
  * @license 	http://www.gnu.org/copyleft/gpl.html GNU Public License (GPL)
  */
@@ -17,11 +16,16 @@
 
 	/*define snippet params*/
 $opencartTpl = (isset($opencartTpl)) ? $opencartTpl : 'opencartTpl';
-$fetchimages = (isset($fetchimages)) ? $fetchimages : '0'; 
 $limit = (isset($limit)) ? $limit : '50';
 $trim = (isset($trim)) ? $trim : '200';
 $orderdir = (isset($orderdir)) ? $orderdir : 'DESC';
 $orderby = (isset($orderby)) ? $orderby : 'product_id';
+$fetchimages = (isset($fetchimages)) ? $fetchimages : '0'; 
+$store_dir = (isset($store_dir)) ? $store_dir : 'assets/images/ocx';
+$store_dir_type = (isset($store_dir_type)) ? $store_dir_type : 'relative';
+$overwrite = (isset($overwrite)) ? $overwrite : 'false';
+$pref = (isset($pref)) ? $pref : 'false';
+$debug = (isset($debug)) ? $debug : 'true';
 
 if(!function_exists('substrwords')) {	
 function substrwords($text, $maxchar, $end='...') {
@@ -56,7 +60,7 @@ Funcion fetch images
 http://www.intechgrity.com/automatically-copy-images-png-jpeg-gif-from-remote-server-http-to-your-local-server-using-php/#
 */
 if(!function_exists('itg_fetch_image')) {		
-function itg_fetch_image($img_url, $store_dir = 'assets/images', $store_dir_type = 'relative', $overwrite = false, $pref = false, $debug = true) {
+function itg_fetch_image($img_url, $store_dir, $store_dir_type, $overwrite, $pref, $debug) {
     //first get the base name of the image
     $i_name = explode('.', basename($img_url));
     $i_name = $i_name[0];
@@ -90,14 +94,13 @@ $remotepath = $urlparts['path'].'?'.$urlparts['query'];
  
     $dir_name = (($store_dir_type == 'relative')? './' : '') . rtrim($store_dir, '/') . '/';
  
-    //create the directory if not present
-    if(!file_exists($dir_name . "/" . $subfolders[5] . "/" . $subfolders[6]))
-		mkdir($dir_name . "/" . $subfolders[5] . "/" . $subfolders[6], 0777, true);
+     //create the directory if not present
+    if(!file_exists($dir_name))
+        mkdir($dir_name, 0777, true);
  
     //calculate the destination image path
-	//  $i_dest = $dir_name . $i_name . (($pref === false)? '' : '_' . $pref) . '.' . $img_type;
-	$i_dest = $dir_name . $subfolders[5] . "/" . $subfolders[6] . "/" . $i_name . (($pref === false)? '' : '_' . $pref) . '.' . $img_type;
- 
+    $i_dest = $dir_name . $i_name . (($pref === false)? '' : '_' . $pref) . '.' . $img_type;
+	
     //lets see if the path exists already
     if(file_exists($i_dest)) {
         $pref = (int) $pref;
@@ -202,7 +205,7 @@ while($row1 = mysqli_fetch_array( $result1 )) {
 	}
 	else 
 	if($fetchimages == '1') {
-	$oc_image = itg_fetch_image($remote_image);
+	$oc_image = itg_fetch_image($remote_image, $store_dir, $store_dir_type, $overwrite, $pref, $debug);
 }
   }
 
