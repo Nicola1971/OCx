@@ -4,7 +4,7 @@
  * OCx Open Cart product template
  *
  * @category	chunk
- * @internal @modx_category add
+ * @internal @modx_category OCx
  */
 <div class="row blog-post margin-bottom-10">
 <div class="col-md-5">
