@@ -4,7 +4,7 @@
 	 * Display Open Cart products in MODX Evolution
      *
      * @author      Author: Nicola Lambathakis http://www.tattoocms.it/
-     * @version 1.6.3
+     * @version 1.6.4
      * @internal	@modx_category OCx
  * @license 	http://www.gnu.org/copyleft/gpl.html GNU Public License (GPL)
  */
@@ -192,6 +192,7 @@ else
 while($row0 = mysqli_fetch_array( $result0 )) {
     $id = $row0['product_id'];
 	$image = $row0['image'];
+    $price = sprintf('%0.2f', $row0['price']);
 	$isbn = $row0['isbn'];
 	$remote_image = "$oc_shop_url/$oc_image_folder$image";
 	
@@ -210,11 +211,6 @@ while($row0 = mysqli_fetch_array( $result0 )) {
         $description = html_entity_decode($htmldescription);
 		$flat_description = strip_tags($description);
 		$short_description = substrwords($flat_description,$trim);
- // oc product price
-        $result3 = mysqli_query($db_server, "SELECT DISTINCT * FROM oc_product WHERE product_id IN ($id) GROUP BY product_id");
-        while($row3 = mysqli_fetch_array( $result3 )) {
-            $price = sprintf('%0.2f', $row3['price']);
-        }
 		
  // oc product special price
         $result4 = mysqli_query($db_server, "SELECT DISTINCT * FROM oc_product_special WHERE product_id IN ($id) GROUP BY product_id");
@@ -240,7 +236,7 @@ $buy_from_amazon = "http://www.$oc_amazon/dp/$isbn?tag=$oc_affiliate_amazon_tag"
 		{
 		$d_name = mb_convert_encoding($name, 'HTML-ENTITIES', $charset);
 		$d_short_description = mb_convert_encoding($short_description, 'HTML-ENTITIES', $charset);
-		$d_description = mb_convert_encoding($short_description, 'HTML-ENTITIES', $charset);
+		$d_description = mb_convert_encoding($description, 'HTML-ENTITIES', $charset);
 		$d_product_alias_url = mb_convert_encoding($product_alias_url, 'HTML-ENTITIES', $charset);
 		}	
 		else {

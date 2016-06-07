@@ -4,11 +4,11 @@
 	 * Display Open Cart Categories in MODX Evolution
      *
      * @author      Author: Nicola Lambathakis http://www.tattoocms.it/
-     * @version 1.6.3
+     * @version 1.6.4
      * @internal	@modx_category OCx
  * @license 	http://www.gnu.org/copyleft/gpl.html GNU Public License (GPL)
  */
-/**
+ 
 	/**
     Sample call
 [[OCxCategory? &cat=`3` &opencartTpl=`opencartTpl` &fetchimages=`0` &limit=`50` &orderdir=`DESC` &orderby=`product_id`]]
@@ -55,8 +55,7 @@ function substrwords($text, $maxchar, $end='...') {
 }
 
 /**********************/
-	/***********/
-	/**
+/*
 Funcion fetch images 
 	credits: 
 http://www.intechgrity.com/automatically-copy-images-png-jpeg-gif-from-remote-server-http-to-your-local-server-using-php/#
@@ -180,7 +179,7 @@ if (mysqli_connect_errno()) {
     printf("Can't connect to MySQL Server. Errorcode: %s\n", mysqli_connect_error()); 
     exit; 
 }
-
+ // oc product categoory id FROM oc_product_to_category 
 $result0 = mysqli_query($db_server, "SELECT DISTINCT * FROM oc_product_to_category WHERE category_id IN ($cat) GROUP BY product_id ORDER BY $orderby $orderdir LIMIT $limit")
 or die(mysqli_error($db_server)); if (!$result0) die ("Database access failed: " . mysqli_error());
 
@@ -195,10 +194,11 @@ while($row0 = mysqli_fetch_array( $result0 )) {
 	$id = $row0['product_id'];
 	  
 	  
- // oc product id and image	FROM oc_product 
+ // oc product id, price and image	FROM oc_product 
 $result1 = mysqli_query($db_server, "SELECT DISTINCT * FROM oc_product WHERE product_id='$id' GROUP BY product_id ORDER BY $orderby $orderdir LIMIT $limit");
 while($row1 = mysqli_fetch_array( $result1 )) {
 	$image = $row1['image'];
+	$price = sprintf('%0.2f', $row1['price']);
 	$isbn = $row1['isbn'];
 	$remote_image = "$oc_shop_url/$oc_image_folder$image";
 	
@@ -211,7 +211,7 @@ while($row1 = mysqli_fetch_array( $result1 )) {
 }
   }
 
- // oc product name and description	FROM oc_product_description 
+// oc product name and description	FROM oc_product_description 
     $result2 = mysqli_query($db_server, "SELECT DISTINCT * FROM oc_product_description WHERE product_id='$id' GROUP BY product_id ORDER BY $orderby $orderdir LIMIT $limit");
     while($row2 = mysqli_fetch_array( $result2 )) {
         $name = $row2['name'];
@@ -219,23 +219,16 @@ while($row1 = mysqli_fetch_array( $result1 )) {
         $description = html_entity_decode($htmldescription);
 		$flat_description = strip_tags($description);
 		$short_description = substrwords($flat_description,$trim);
-		
- // oc product price FROM oc_product  
-        $result3 = mysqli_query($db_server, "SELECT DISTINCT * FROM oc_product WHERE product_id='$id' GROUP BY product_id ORDER BY $orderby $orderdir LIMIT $limit");
-        while($row3 = mysqli_fetch_array( $result3 )) {
-            $price = sprintf('%0.2f', $row3['price']);
+
+// oc product special price FROM oc_product_special
+        $result3 = mysqli_query($db_server, "SELECT DISTINCT * FROM oc_product_special WHERE product_id='$id' GROUP BY product_id ORDER BY $orderby $orderdir LIMIT $limit");
+        while($row = mysqli_fetch_array( $result3)) {
+            $spprice = sprintf('%0.2f', $row3['price']);
         }
-		
- // oc product special price FROM oc_product_special 
-        $result4 = mysqli_query($db_server, "SELECT DISTINCT * FROM oc_product_special WHERE product_id='$id' GROUP BY product_id ORDER BY $orderby $orderdir LIMIT $limit");
-        while($row = mysqli_fetch_array( $result4)) {
-            $spprice = sprintf('%0.2f', $row4['price']);
-        }
-		
- // oc product url alias for friendly urls link	FROM oc_url_alias  	
-    $result5 = mysqli_query($db_server, "SELECT DISTINCT * FROM oc_url_alias WHERE query='product_id=$id' LIMIT $limit");
-    while($row5 = mysqli_fetch_array( $result5 )) {
-    $keyword = $row5['keyword'];
+// oc product url alias for friendly urls link	FROM oc_url_alias  	
+    $result4 = mysqli_query($db_server, "SELECT DISTINCT * FROM oc_url_alias WHERE query='product_id=$id' LIMIT $limit");
+    while($row4 = mysqli_fetch_array( $result4 )) {
+    $keyword = $row4['keyword'];
 		}
 		
 // define the placeholders and set their values
@@ -249,7 +242,7 @@ $buy_from_amazon = "http://www.$oc_amazon/dp/$isbn?tag=$oc_affiliate_amazon_tag"
 		{
 		$d_name = mb_convert_encoding($name, 'HTML-ENTITIES', $charset);
 		$d_short_description = mb_convert_encoding($short_description, 'HTML-ENTITIES', $charset);
-		$d_description = mb_convert_encoding($short_description, 'HTML-ENTITIES', $charset);
+		$d_description = mb_convert_encoding($description, 'HTML-ENTITIES', $charset);
 		$d_product_alias_url = mb_convert_encoding($product_alias_url, 'HTML-ENTITIES', $charset);
 		}	
 		else {
