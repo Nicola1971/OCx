@@ -4,7 +4,7 @@
 	 * Display Open Cart products in MODX Evolution
      *
      * @author      Author: Nicola Lambathakis http://www.tattoocms.it/
-     * @version 1.6.2
+     * @version 1.6.3
      * @internal	@modx_category OCx
  * @license 	http://www.gnu.org/copyleft/gpl.html GNU Public License (GPL)
  */
@@ -21,6 +21,8 @@ $store_dir_type = (isset($store_dir_type)) ? $store_dir_type : 'relative';
 $overwrite = (isset($overwrite)) ? $overwrite : 'false';
 $pref = (isset($pref)) ? $pref : 'false';
 $debug = (isset($debug)) ? $debug : 'true';
+$convert = (isset($convert)) ? $convert : '0';
+$charset = (isset($charset)) ? $charset : 'ISO-8859-1';
 
 if(!function_exists('substrwords')) {	
 function substrwords($text, $maxchar, $end='...') {
@@ -208,7 +210,6 @@ while($row0 = mysqli_fetch_array( $result0 )) {
         $description = html_entity_decode($htmldescription);
 		$flat_description = strip_tags($description);
 		$short_description = substrwords($flat_description,$trim);
-
  // oc product price
         $result3 = mysqli_query($db_server, "SELECT DISTINCT * FROM oc_product WHERE product_id IN ($id) GROUP BY product_id");
         while($row3 = mysqli_fetch_array( $result3 )) {
@@ -233,10 +234,25 @@ while($row0 = mysqli_fetch_array( $result0 )) {
 $product_url = "$oc_shop_url/index.php?route=product/product&product_id=$id";
 $product_alias_url = "$oc_shop_url/$keyword";
 $buy_from_amazon = "http://www.$oc_amazon/dp/$isbn?tag=$oc_affiliate_amazon_tag";
+		
+// convert charset				
+		if($convert == '1')
+		{
+		$d_name = mb_convert_encoding($name, 'HTML-ENTITIES', $charset);
+		$d_short_description = mb_convert_encoding($short_description, 'HTML-ENTITIES', $charset);
+		$d_description = mb_convert_encoding($short_description, 'HTML-ENTITIES', $charset);
+		$d_product_alias_url = mb_convert_encoding($product_alias_url, 'HTML-ENTITIES', $charset);
+		}	
+		else {
+		$d_name = $name;
+		$d_short_description = $short_description;
+		$d_description = $description;
+		$d_product_alias_url = $product_alias_url;
+		}		
 
-		// parse the chunk and replace the placeholder values.
+// parse the chunk and replace the placeholder values.
 // note that the values need to be in an array with the format placeholderName => placeholderValue
-$values = array('ocimage' => $oc_image, 'ocid' => $id, 'ocname' => $name, 'ocdescription' => $description, 'ocshort_description' => $short_description,'ocprice' => $price, 'ocspprice' => $spprice, 'ocalias' => $keyword, 'ocshop_url' => $oc_shop_url, 'ocproduct_url' => $product_url, 'ocproduct_alias_url' => $product_alias_url, 'buy_from_amazon' => $buy_from_amazon);
+$values = array('ocimage' => $oc_image, 'ocid' => $id, 'ocname' => $d_name, 'ocdescription' => $d_description, 'ocshort_description' => $d_short_description,'ocprice' => $price, 'ocspprice' => $spprice, 'ocalias' => $keyword, 'ocshop_url' => $oc_shop_url, 'ocproduct_url' => $product_url, 'ocproduct_alias_url' => $d_product_alias_url, 'buy_from_amazon' => $buy_from_amazon);
 
 //   
 $output =  $output . $modx->parseChunk($opencartTpl, $values, '[+', '+]');
