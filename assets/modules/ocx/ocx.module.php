@@ -3,7 +3,7 @@
 /**
  * OCx
  *
- * OCx 1.6 Module - Open Cart Dashboard
+ * OCx 1.6.5 Module - Open Cart Dashboard
  * @author	Nicola Lambathakis
  * @category	module
  * @internal	@modx_category OCx
@@ -106,11 +106,11 @@ switch ($_GET['action']) {
 				$name = isset($db_server, $_POST['name']) ? mysqli_real_escape_string($db_server, $_POST['name']) : '';
                 $offset = ($page-1)*$rows;
                 $result = array();
-                $where = "oc_product.product_id like '$product_id%' and oc_product_description.name like '$name%'";       
-                $rs = mysqli_query($db_server, "select count(distinct oc_product.product_id, oc_product.image, oc_product.price, oc_product.model, oc_product.quantity, oc_product.viewed, oc_product.date_added, oc_product.date_modified, oc_product_description.name) from oc_product INNER JOIN oc_product_description ON oc_product.product_id=oc_product_description.product_id where " . $where);
+                $where = "oc_product.product_id like '$product_id%' and oc_product_description.name like '$name%' and oc_product.status=1";       
+                $rs = mysqli_query($db_server, "select count(distinct oc_product.product_id, oc_product.status, oc_product.image, oc_product.price, oc_product.model, oc_product.quantity, oc_product.viewed, oc_product.date_added, oc_product.date_modified, oc_product_description.name) from oc_product INNER JOIN oc_product_description ON oc_product.product_id=oc_product_description.product_id where " . $where);
                 $row = mysqli_fetch_row($rs);
 				$result["total"] = $row[0];
-                $rs = mysqli_query($db_server, "select distinct oc_product.product_id, oc_product.image, oc_product.price, oc_product.model, oc_product.quantity, oc_product.viewed, oc_product.date_added, oc_product.date_modified, oc_product_description.name from oc_product INNER JOIN oc_product_description ON oc_product.product_id=oc_product_description.product_id where  " . $where . " order by $sort $order limit $offset,$rows");
+                $rs = mysqli_query($db_server, "select distinct oc_product.product_id, oc_product.status, oc_product.image, oc_product.price, oc_product.model, oc_product.quantity, oc_product.viewed, oc_product.date_added, oc_product.date_modified, oc_product_description.name from oc_product INNER JOIN oc_product_description ON oc_product.product_id=oc_product_description.product_id where  " . $where . " order by $sort $order limit $offset,$rows");
                //$downloadProductImage = itg_fetch_image('+row_image+');
                 $items = array();
                 while($row = mysqli_fetch_array($rs)){
