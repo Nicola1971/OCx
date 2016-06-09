@@ -4,7 +4,7 @@
 	 * Display Open Cart Categories in MODX Evolution
      *
      * @author      Author: Nicola Lambathakis http://www.tattoocms.it/
-     * @version 1.6.5
+     * @version 1.7
      * @internal	@modx_category OCx
  * @license 	http://www.gnu.org/copyleft/gpl.html GNU Public License (GPL)
  */
@@ -15,7 +15,7 @@ if(!defined('MODX_BASE_PATH')){die('What are you doing? Get out of here!');}
 [[OCxCategory? &cat=`3` &opencartTpl=`opencartTpl` &fetchimages=`0` &limit=`50` &orderdir=`DESC` &orderby=`product_id`]]
 */
 
-	/*define snippet params*/
+/*define snippet params*/
 $opencartTpl = (isset($opencartTpl)) ? $opencartTpl : 'opencartTpl';
 $limit = (isset($limit)) ? $limit : '50';
 $trim = (isset($trim)) ? $trim : '200';
@@ -38,8 +38,14 @@ if (mysqli_connect_errno()) {
     printf("Can't connect to MySQL Server. Errorcode: %s\n", mysqli_connect_error()); 
     exit; 
 }
- // oc product categoory id FROM oc_product_to_category 
-$result0 = mysqli_query($db_server, "SELECT DISTINCT * FROM oc_product_to_category WHERE category_id IN ($cat) GROUP BY product_id ORDER BY $orderby $orderdir LIMIT $limit")
+	
+$result0 = mysqli_query($db_server, "SELECT DISTINCT 
+oc_product.product_id, oc_product.status, oc_product.image, oc_product.price, oc_product.model, oc_product.quantity, oc_product.viewed, oc_product.isbn,oc_product_description.name,oc_product_description.description,oc_product_to_category.category_id
+FROM oc_product 
+INNER JOIN oc_product_description ON oc_product.product_id=oc_product_description.product_id 
+INNER JOIN oc_product_to_category ON oc_product_description.product_id = oc_product_to_category.product_id
+WHERE oc_product_to_category.category_id=$cat
+ORDER BY oc_product.$orderby $orderdir LIMIT $limit")
 or die(mysqli_error($db_server)); if (!$result0) die ("Database access failed: " . mysqli_error());
 
 if ( mysqli_num_rows( $result0 ) < 1 )
@@ -50,15 +56,18 @@ else
 {
 	
 while($row0 = mysqli_fetch_array( $result0 )) {
-	$id = $row0['product_id'];
-	  
-	  
- // oc product id, price and image	FROM oc_product 
-$result1 = mysqli_query($db_server, "SELECT DISTINCT * FROM oc_product WHERE product_id='$id' GROUP BY product_id ORDER BY $orderby $orderdir LIMIT $limit");
-while($row1 = mysqli_fetch_array( $result1 )) {
-	$image = $row1['image'];
-	$price = sprintf('%0.2f', $row1['price']);
-	$isbn = $row1['isbn'];
+	$id = $row0['product_id'];	  
+	$image = $row0['image'];
+	$price = sprintf('%0.2f', $row0['price']);
+	$isbn = $row0['isbn'];
+	$name = $row0['name'];
+	$model = $row0['model'];
+	$quantity = $row0['quantity'];
+	$viewed = $row0['viewed'];
+    $htmldescription = $row0['description'];
+    $description = html_entity_decode($htmldescription);
+	$flat_description = strip_tags($description);
+	$short_description = substrwords($flat_description,$trim);
 	$remote_image = "$oc_shop_url/$oc_image_folder$image";
 	
 	if($fetchimages == '0') {
@@ -67,18 +76,7 @@ while($row1 = mysqli_fetch_array( $result1 )) {
 	else 
 	if($fetchimages == '1') {
 	$oc_image = itg_fetch_image($remote_image, $store_dir, $store_dir_type, $overwrite, $pref, $debug);
-}
-  }
-
-// oc product name and description	FROM oc_product_description 
-    $result2 = mysqli_query($db_server, "SELECT DISTINCT * FROM oc_product_description WHERE product_id='$id' GROUP BY product_id ORDER BY $orderby $orderdir LIMIT $limit");
-    while($row2 = mysqli_fetch_array( $result2 )) {
-        $name = $row2['name'];
-        $htmldescription = $row2['description'];
-        $description = html_entity_decode($htmldescription);
-		$flat_description = strip_tags($description);
-		$short_description = substrwords($flat_description,$trim);
-
+    }
 // oc product special price FROM oc_product_special
         $result3 = mysqli_query($db_server, "SELECT DISTINCT * FROM oc_product_special WHERE product_id='$id' GROUP BY product_id ORDER BY $orderby $orderdir LIMIT $limit");
         while($row = mysqli_fetch_array( $result3)) {
@@ -89,7 +87,7 @@ while($row1 = mysqli_fetch_array( $result1 )) {
     while($row4 = mysqli_fetch_array( $result4 )) {
     $keyword = $row4['keyword'];
 		}
-		
+	
 // define the placeholders and set their values
 $opencartTpl = (isset($opencartTpl)) ? $opencartTpl : 'opencartTpl';
 $product_url = "$oc_shop_url/index.php?route=product/product&product_id=$id";
@@ -113,12 +111,10 @@ $buy_from_amazon = "http://www.$oc_amazon/dp/$isbn?tag=$oc_affiliate_amazon_tag"
 
 // parse the chunk and replace the placeholder values.
 // note that the values need to be in an array with the format placeholderName => placeholderValue
-$values = array('ocimage' => $oc_image, 'ocid' => $id, 'ocname' => $d_name, 'ocdescription' => $d_description, 'ocshort_description' => $d_short_description,'ocprice' => $price, 'ocspprice' => $spprice, 'ocalias' => $keyword, 'ocshop_url' => $oc_shop_url, 'ocproduct_url' => $product_url, 'ocproduct_alias_url' => $d_product_alias_url, 'buy_from_amazon' => $buy_from_amazon);
+$values = array('ocimage' => $oc_image, 'ocid' => $id, 'ocname' => $d_name, 'ocdescription' => $d_description, 'ocshort_description' => $d_short_description,'ocprice' => $price,'ocprice' => $price,'model' => $model,'quantity' => $quantity, 'ocspprice' => $spprice, 'ocalias' => $keyword, 'ocshop_url' => $oc_shop_url, 'ocproduct_url' => $product_url, 'ocproduct_alias_url' => $d_product_alias_url, 'buy_from_amazon' => $buy_from_amazon);
 
-//   
 $output =  $output . $modx->parseChunk($opencartTpl, $values, '[+', '+]');
-	}
-	}
+}	
 }//end 
 mysqli_close($db_server);
 
