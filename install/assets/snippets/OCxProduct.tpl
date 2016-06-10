@@ -32,6 +32,7 @@ $debug = (isset($debug)) ? $debug : 'true';
 $convert = (isset($convert)) ? $convert : '0';
 $charset = (isset($charset)) ? $charset : 'ISO-8859-1';
 $trim = (isset($trim)) ? $trim : '200';
+$noResults = (isset($noResults)) ? $noResults : 'No product found';
 
 include_once(MODX_BASE_PATH . 'assets/snippets/ocx/ocx.functions.php');  
 
@@ -53,7 +54,7 @@ or die(mysqli_error($db_server)); if (!$result0) die ("Database access failed: "
 
 if ( mysqli_num_rows( $result0 ) < 1 )
 {
-     echo" Category id $cat not found";
+     echo" $noResults";
 }
 else
 {
