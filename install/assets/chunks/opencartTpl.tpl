@@ -2,7 +2,8 @@
  * opencartTpl
  *
  * OCx Open Cart product template
- *
+ * @author      Author: Nicola Lambathakis http://www.tattoocms.it/
+ * @version 1.7.1
  * @category	chunk
  * @internal @modx_category OCx
  */
