@@ -45,7 +45,7 @@ oc_product.product_id, oc_product.status, oc_product.image, oc_product.price, oc
 FROM oc_product 
 INNER JOIN oc_product_description ON oc_product.product_id=oc_product_description.product_id 
 INNER JOIN oc_product_to_category ON oc_product_description.product_id = oc_product_to_category.product_id
-WHERE oc_product_to_category.category_id=$cat
+WHERE oc_product_to_category.category_id IN ($cat)
 ORDER BY oc_product.$orderby $orderdir LIMIT $limit")
 or die(mysqli_error($db_server)); if (!$result0) die ("Database access failed: " . mysqli_error());
 
