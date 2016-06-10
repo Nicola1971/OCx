@@ -4,17 +4,18 @@
 	 * Display Open Cart Categories in MODX Evolution
      *
      * @author      Author: Nicola Lambathakis http://www.tattoocms.it/
-     * @version 1.7
+     * @version 1.7.1
      * @internal	@modx_category OCx
  * @license 	http://www.gnu.org/copyleft/gpl.html GNU Public License (GPL)
  */
  
-if(!defined('MODX_BASE_PATH')){die('What are you doing? Get out of here!');}
-/**
+<?php
+/** 
+    OCxCategory 1.7.1
     Sample call
 [[OCxCategory? &cat=`3` &opencartTpl=`opencartTpl` &fetchimages=`0` &limit=`50` &orderdir=`DESC` &orderby=`product_id`]]
 */
-
+if(!defined('MODX_BASE_PATH')){die('What are you doing? Get out of here!');}
 /*define snippet params*/
 $opencartTpl = (isset($opencartTpl)) ? $opencartTpl : 'opencartTpl';
 $limit = (isset($limit)) ? $limit : '50';
@@ -111,8 +112,9 @@ $buy_from_amazon = "http://www.$oc_amazon/dp/$isbn?tag=$oc_affiliate_amazon_tag"
 
 // parse the chunk and replace the placeholder values.
 // note that the values need to be in an array with the format placeholderName => placeholderValue
-$values = array('ocimage' => $oc_image, 'ocid' => $id, 'ocname' => $d_name, 'ocdescription' => $d_description, 'ocshort_description' => $d_short_description,'ocprice' => $price,'ocprice' => $price,'model' => $model,'quantity' => $quantity, 'ocspprice' => $spprice, 'ocalias' => $keyword, 'ocshop_url' => $oc_shop_url, 'ocproduct_url' => $product_url, 'ocproduct_alias_url' => $d_product_alias_url, 'buy_from_amazon' => $buy_from_amazon);
+$values = array('ocimage' => $oc_image, 'ocid' => $id, 'ocname' => $d_name, 'ocdescription' => $d_description, 'ocshort_description' => $d_short_description, 'ocprice' => $price, 'ocmodel' => $model,'ocquantity' => $quantity,'ocviewed' => $viewed, 'ocspprice' => $spprice, 'ocalias' => $keyword, 'ocshop_url' => $oc_shop_url, 'ocproduct_url' => $product_url, 'ocproduct_alias_url' => $d_product_alias_url, 'buy_from_amazon' => $buy_from_amazon);
 
+//   
 $output =  $output . $modx->parseChunk($opencartTpl, $values, '[+', '+]');
 }	
 }//end 
