@@ -4,16 +4,16 @@
 	 * Display Open Cart Categories in MODX Evolution
      *
      * @author      Author: Nicola Lambathakis http://www.tattoocms.it/
-     * @version 1.7.1
+     * @version 1.7.2
      * @internal	@modx_category OCx
  * @license 	http://www.gnu.org/copyleft/gpl.html GNU Public License (GPL)
  */
  
 <?php
 /** 
-    OCxCategory 1.7.1
+    OCxCategory 1.7.2
     Sample call
-[[OCxCategory? &cat=`3` &opencartTpl=`opencartTpl` &fetchimages=`0` &limit=`50` &orderdir=`DESC` &orderby=`product_id`]]
+[[OCxCategory? &cat=`3` &opencartTpl=`opencartTpl` &fetchimages=`0` &limit=`50` &orderby=`price` &orderdir=`DESC` &fetchimages=`1` &store_dir=`assets/images/ocx`!]
 */
 if(!defined('MODX_BASE_PATH')){die('What are you doing? Get out of here!');}
 /*define snippet params*/
@@ -79,7 +79,7 @@ while($row0 = mysqli_fetch_array( $result0 )) {
 	$oc_image = itg_fetch_image($remote_image, $store_dir, $store_dir_type, $overwrite, $pref, $debug);
     }
 // oc product special price FROM oc_product_special
-        $result3 = mysqli_query($db_server, "SELECT DISTINCT * FROM oc_product_special WHERE product_id='$id' GROUP BY product_id ORDER BY $orderby $orderdir LIMIT $limit");
+        $result3 = mysqli_query($db_server, "SELECT DISTINCT * FROM oc_product_special WHERE product_id='$id' GROUP BY product_id LIMIT $limit");
         while($row = mysqli_fetch_array( $result3)) {
             $spprice = sprintf('%0.2f', $row3['price']);
         }

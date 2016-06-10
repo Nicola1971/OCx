@@ -4,22 +4,25 @@
 	 * Display Open Cart products in MODX Evolution
      *
      * @author      Author: Nicola Lambathakis http://www.tattoocms.it/
-     * @version 1.7.1
+     * @version 1.7.2
      * @internal	@modx_category OCx
      * @license 	http://www.gnu.org/copyleft/gpl.html GNU Public License (GPL)
  */
 
 <?php
 /**
-    OCxProduct 1.7.1
+    OCxProduct 1.7.2
     Sample call
-[[OCxProduct? &id=`60` &opencartTpl=`opencartTpl` &fetchimages=`0` &store_dir=`assets/images/ocx`]]
+[[OCxProduct? &id=`48,49` &opencartTpl=`opencartTpl` &fetchimages=`0` &orderby=`price` &orderdir=`DESC` &store_dir=`assets/images/ocx`]]
 */
 
 if(!defined('MODX_BASE_PATH')){die('What are you doing? Get out of here!');}
 
 	/*define snippet params*/
 $opencartTpl = (isset($opencartTpl)) ? $opencartTpl : 'opencartTpl';
+$trim = (isset($trim)) ? $trim : '200';
+$orderdir = (isset($orderdir)) ? $orderdir : 'DESC';
+$orderby = (isset($orderby)) ? $orderby : 'product_id';
 $fetchimages = (isset($fetchimages)) ? $fetchimages : '0'; 
 $store_dir = (isset($store_dir)) ? $store_dir : 'assets/images/ocx';
 $store_dir_type = (isset($store_dir_type)) ? $store_dir_type : 'relative';
@@ -44,7 +47,8 @@ oc_product.product_id, oc_product.status, oc_product.image, oc_product.price, oc
 FROM oc_product 
 INNER JOIN oc_product_description ON oc_product.product_id=oc_product_description.product_id 
 INNER JOIN oc_product_to_category ON oc_product_description.product_id = oc_product_to_category.product_id
-WHERE oc_product.product_id IN ($id)")
+WHERE oc_product.product_id IN ($id)
+ORDER BY oc_product.$orderby $orderdir")
 or die(mysqli_error($db_server)); if (!$result0) die ("Database access failed: " . mysqli_error());
 
 if ( mysqli_num_rows( $result0 ) < 1 )
