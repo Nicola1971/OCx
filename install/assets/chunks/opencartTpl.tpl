@@ -13,6 +13,7 @@
 </div>
 <div class="col-md-7">
 	<a href="[+ocproduct_alias_url+]" title="[+ocname+]"><h3>[+ocname+]</h3></a>
+    <p class="text-muted small">id: [+ocid+] | model: [+ocmodel+] | views: [+ocviewed+] | quantity: [+ocquantity+] </p>
 [+ocshort_description+]
 	<h4 class="text-success">[+ocprice+] €</h4>
 <!--<a class="btn btn-default" href="[+ocproduct_url+]"><i class="fa fa-share"></i> Details</a>-->
