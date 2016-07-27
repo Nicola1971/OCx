@@ -1,4 +1,4 @@
-# OCx RC 1.7.2 
+# OCx RC 1.7.3 
 Display Opencart products and categories in MODX Evolution
 
 http://www.tattoocms.it/extras/snippets/ocx-opencart-modx-evolution.html
@@ -7,8 +7,9 @@ http://www.tattoocms.it/extras/snippets/ocx-opencart-modx-evolution.html
 
 ### Snippets Features:
 
-* Display one or more Opencart Category
-* Display one or more Opencart product
+* **OcxCategory**: Display one or more Opencart Category by category id
+* **OcxProducts**: Display one or more Opencart product by product id
+* **OcxRelated**: Display one or more Opencart products searching for a keyword in Opencart fields name, description or model  
 * Add to cart from MODx (requires Add to Cart via URL link Opencart extension)
 * Buy from Amazon (Requires Opencart Amazon Affiliate Webstore Opencart extension )
 * Display products images from opencart or automatically fetch in your MODX assets/images dir
