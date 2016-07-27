@@ -4,14 +4,14 @@
 	 * Display Open Cart products in MODX Evolution
      *
      * @author      Author: Nicola Lambathakis http://www.tattoocms.it/
-     * @version 1.7.2
+     * @version 1.7.3
      * @internal	@modx_category OCx
      * @license 	http://www.gnu.org/copyleft/gpl.html GNU Public License (GPL)
  */
 
 <?php
 /**
-    OCxProduct 1.7.2
+    OCxProduct 1.7.3
     Sample call
 [[OCxProduct? &id=`48,49` &opencartTpl=`opencartTpl` &fetchimages=`0` &orderby=`price` &orderdir=`DESC` &store_dir=`assets/images/ocx`]]
 */
@@ -32,7 +32,7 @@ $debug = (isset($debug)) ? $debug : 'true';
 $convert = (isset($convert)) ? $convert : '0';
 $charset = (isset($charset)) ? $charset : 'ISO-8859-1';
 $trim = (isset($trim)) ? $trim : '200';
-$noResults = (isset($noResults)) ? $noResults : 'No product found';
+$noResults = (isset($trim)) ? $trim : 'No product found';
 
 include_once(MODX_BASE_PATH . 'assets/snippets/ocx/ocx.functions.php');  
 

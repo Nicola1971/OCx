@@ -1,7 +1,7 @@
 /**
-     * OCxCategory
+     * OCxRelated
      *
-	 * Display Open Cart Categories in MODX Evolution
+	 * Display Open Cart related products in MODX Evolution
      *
      * @author      Author: Nicola Lambathakis http://www.tattoocms.it/
      * @version 1.7.3
@@ -11,13 +11,15 @@
  
 <?php
 /** 
-    OCxCategory 1.7.3
+    OCxRelated 1.7.3
     Sample call
-[[OCxCategory? &cat=`3` &opencartTpl=`opencartTpl` &fetchimages=`0` &limit=`50` &orderby=`price` &orderdir=`DESC` &fetchimages=`1` &store_dir=`assets/images/ocx`!]
+[[OCxRelated? &keyword=`macbook` &opencartTpl=`opencartTpl` &limit=`50` &fetchimages=`0` &orderby=`price` &orderdir=`DESC` &store_dir=`assets/images/ocx`]]
 */
 if(!defined('MODX_BASE_PATH')){die('What are you doing? Get out of here!');}
 /*define snippet params*/
 $opencartTpl = (isset($opencartTpl)) ? $opencartTpl : 'opencartTpl';
+$keyword = (isset($keyword)) ? $keyword : '';
+$field = (isset($field)) ? $field : 'name';
 $limit = (isset($limit)) ? $limit : '50';
 $trim = (isset($trim)) ? $trim : '200';
 $orderdir = (isset($orderdir)) ? $orderdir : 'DESC';
@@ -46,7 +48,8 @@ oc_product.product_id, oc_product.status, oc_product.image, oc_product.price, oc
 FROM oc_product 
 INNER JOIN oc_product_description ON oc_product.product_id=oc_product_description.product_id 
 INNER JOIN oc_product_to_category ON oc_product_description.product_id = oc_product_to_category.product_id
-WHERE oc_product_to_category.category_id IN ($cat)
+WHERE oc_product_description.$field LIKE '%$keyword%'
+GROUP BY oc_product.product_id
 ORDER BY oc_product.$orderby $orderdir LIMIT $limit")
 or die(mysqli_error($db_server)); if (!$result0) die ("Database access failed: " . mysqli_error());
 
@@ -80,7 +83,7 @@ while($row0 = mysqli_fetch_array( $result0 )) {
 	$oc_image = itg_fetch_image($remote_image, $store_dir, $store_dir_type, $overwrite, $pref, $debug);
     }
 // oc product special price FROM oc_product_special
-        $result3 = mysqli_query($db_server, "SELECT DISTINCT * FROM oc_product_special WHERE product_id='$id' GROUP BY product_id LIMIT $limit");
+        $result3 = mysqli_query($db_server, "SELECT DISTINCT * FROM oc_product_special WHERE product_id='$id' LIMIT $limit");
         while($row = mysqli_fetch_array( $result3)) {
             $spprice = sprintf('%0.2f', $row3['price']);
         }
