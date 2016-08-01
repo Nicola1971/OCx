@@ -62,7 +62,7 @@ $remotepath = $urlparts['path'].'?'.$urlparts['query'];
 
 
 if(remote == $show_images)	{
-$oc_img_path = $shop_url . "/" . $image_folder . "/";
+$oc_img_path = $shop_url . "/" . $image_folder;
 }	
 
 if(local == $show_images)	{
