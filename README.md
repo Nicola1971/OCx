@@ -1,4 +1,4 @@
-# OCx RC 1.7.3 
+# OCx RC 1.7.4
 Display Opencart products and categories in MODX Evolution
 
 http://www.tattoocms.it/extras/snippets/ocx-opencart-modx-evolution.html
