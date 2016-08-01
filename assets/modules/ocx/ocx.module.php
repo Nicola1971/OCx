@@ -3,7 +3,7 @@
 /**
  * OCx
  *
- * OCx 1.6.5 Module - Open Cart Dashboard
+ * OCx 1.7.4 Module - Open Cart Dashboard
  * @author	Nicola Lambathakis
  * @category	module
  * @internal	@modx_category OCx
@@ -180,11 +180,12 @@ switch ($_GET['action']) {
         <meta name="keywords" content="jquery,ui,easy,easyui,web">
         <meta name="description" content="easyui help you build your web page easily!">
         <title>OCx Module</title>
-	<link rel="stylesheet" type="text/css" href="../assets/modules/ocx/easyui/themes/bootstrap/easyui.css">
-        <link rel="stylesheet" type="text/css" href="../assets/modules/ocx/easyui/themes/bootstrap/datagrid.css">
-	   <link rel="stylesheet" type="text/css" href="../assets/modules/ocx/easyui/themes/bootstrap/tabs.css">
-	  <link rel="stylesheet" type="text/css" href="../assets/modules/ocx/easyui/themes/icon.css">
-	 <link rel="stylesheet" type="text/css" href="media/style/<?php echo $theme;?>/style.css" />
+	
+        <link rel="stylesheet" type="text/css" href="../assets/modules/ocx/easyui/themes/datagrid.css">
+	    <link rel="stylesheet" type="text/css" href="../assets/modules/ocx/easyui/themes/tabs.css">
+	    <link rel="stylesheet" type="text/css" href="../assets/modules/ocx/easyui/themes/icon.css">
+         <link rel="stylesheet" type="text/css" href="../assets/modules/ocx/easyui/themes/ocx.css">
+	    <link rel="stylesheet" type="text/css" href="media/style/<?php echo $theme;?>/style.css" />
  
        
         <script type="text/javascript" src="../assets/modules/ocx/jquery-1.9.1.min.js"></script>
@@ -227,14 +228,14 @@ switch ($_GET['action']) {
 	</script>
    <script>
     function formatImage(val,row){
-    return '<img src="<?php echo $oc_img_path;?>'+val+'" height="42" width="42">';
+    return '<img src="<?php echo $oc_img_path;?>'+val+'" height="43" width="43">';
 }
 
 </script>
     <script>
     function formatUrl(val,row){
     var href = '<?php echo $shop_url;?>/index.php?route=product/product&product_id='+row.product_id;
-    return '<a target="_blank" href="' + href + '"><img src="../assets/modules/ocx/images/preview.png" style="vertical-align: middle;"></a></li></ul>';
+    return '<a class="easyui-viewbutton" target="_blank" href="' + href + '"><img src="../assets/modules/ocx/images/preview.png" style="vertical-align: middle;"></a></li></ul>';
 }
 
 </script>
@@ -249,41 +250,7 @@ switch ($_GET['action']) {
  
 			
 			<div id="tt" class="easyui-tabs" style="width:100%;height:100%x;">
-    <div title="Orders" style="padding:10px 0 0 0;display:none;">
-		
-				<div id="#toolbar1" style="padding:3px">
-	    <span>Order ID:</span>
-    <input id="order_id" style="line-height:26px;border:1px solid #ccc">
-    <span>email:</span>
-    <input id="email" style="line-height:26px;border:1px solid #ccc">
-
-    <a href="#" class="easyui-linkbutton" plain="true" onclick="doSearch()">Search</a>
-</div>
-		
-     <table id="gor"  class="easyui-datagrid"
-                        url="<?php echo $moduleurl.'action=getorders'; ?>"
-                        toolbar="#toolbar1" pagination="true"
-                        rownumbers="true" fitColumns="true" singleSelect="true">
-                <thead>
-                        <tr>
-                                    <th sortable="true" field="order_id" width="auto">order id</th> 
-                                     <th sortable="true" field="date_added" width="auto">date added</th>  
-                                     <th sortable="true" field="name" width="auto">status</th>
-                                     <th sortable="true" field="total" width="auto">total</th>
-                                <th sortable="true" field="currency_code" width="auto">currency</th>
-							 <th sortable="true" field="payment_method" width="auto">method</th>
-                                    <th sortable="true" field="firstname" width="auto">firstname</th>
-                                     <th sortable="true" field="lastname" width="auto">lastname</th>                      
-
-                                     <th sortable="true" field="email" width="auto">email</th>
-                                      <th sortable="true" field="telephone" width="auto">telephone</th>
-							         <th sortable="true" field="payment_address_1" width="auto">address</th>
-                                     <th sortable="true" field="payment_city" width="auto">city</th>
-                                     <th sortable="true" field="payment_postcode" width="auto">postcode</th>
-                        </tr>
-                </thead>
-        </table>
-    </div>
+    
     <div title="Products" data-options="closable:false" style="overflow:auto;padding:10px 0 0 0;display:none;">
 	<div id="toolbar2" style="padding:3px">
     <span>Product ID:</span>
@@ -333,6 +300,41 @@ switch ($_GET['action']) {
                 </thead>
         </table>
     </div>
+<div title="Orders" style="padding:10px 0 0 0;display:none;">
+		
+				<div id="#toolbar1" style="padding:3px">
+	    <span>Order ID:</span>
+    <input id="order_id" style="line-height:26px;border:1px solid #ccc">
+    <span>email:</span>
+    <input id="email" style="line-height:26px;border:1px solid #ccc">
+
+    <a href="#" class="easyui-linkbutton" plain="true" onclick="doSearch()">Search</a>
+</div>
+		
+     <table id="gor"  class="easyui-datagrid"
+                        url="<?php echo $moduleurl.'action=getorders'; ?>"
+                        toolbar="#toolbar1" pagination="true"
+                        rownumbers="true" fitColumns="true" singleSelect="true">
+                <thead>
+                        <tr>
+                                    <th sortable="true" field="order_id" width="auto">order id</th> 
+                                     <th sortable="true" field="date_added" width="auto">date added</th>  
+                                     <th sortable="true" field="name" width="auto">status</th>
+                                     <th sortable="true" field="total" width="auto">total</th>
+                                <th sortable="true" field="currency_code" width="auto">currency</th>
+							 <th sortable="true" field="payment_method" width="auto">method</th>
+                                    <th sortable="true" field="firstname" width="auto">firstname</th>
+                                     <th sortable="true" field="lastname" width="auto">lastname</th>                      
+
+                                     <th sortable="true" field="email" width="auto">email</th>
+                                      <th sortable="true" field="telephone" width="auto">telephone</th>
+							         <th sortable="true" field="payment_address_1" width="auto">address</th>
+                                     <th sortable="true" field="payment_city" width="auto">city</th>
+                                     <th sortable="true" field="payment_postcode" width="auto">postcode</th>
+                        </tr>
+                </thead>
+        </table>
+    </div>
 <div title="Customers" data-options="closable:false" style="overflow:auto;padding:10px 0 0 0;display:none;">
 <div id="toolbar4" style="padding:3px">
     <span>firstname:</span>
@@ -358,9 +360,12 @@ switch ($_GET['action']) {
                 </thead>
         </table>
     </div>
+</div>
+<div>	
+<div style="float:right">OCx 1.7.4 </div>	
 </div>							
 </div>
-		
+	
 </body>
 </html>
 <?php     
