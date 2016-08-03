@@ -62,7 +62,7 @@ $remotepath = $urlparts['path'].'?'.$urlparts['query'];
 
 
 if(remote == $show_images)	{
-$oc_img_path = $shop_url . "/" . $image_folder;
+$oc_img_path = $shop_url . "/" . $image_folder . "/";
 }	
 
 if(local == $show_images)	{
@@ -185,6 +185,7 @@ switch ($_GET['action']) {
 	    <link rel="stylesheet" type="text/css" href="../assets/modules/ocx/easyui/themes/tabs.css">
 	    <link rel="stylesheet" type="text/css" href="../assets/modules/ocx/easyui/themes/icon.css">
          <link rel="stylesheet" type="text/css" href="../assets/modules/ocx/easyui/themes/ocx.css">
+                  <link rel="stylesheet" type="text/css" href="../assets/modules/ocx/font-awesome/css/font-awesome.min.css">
 	    <link rel="stylesheet" type="text/css" href="media/style/<?php echo $theme;?>/style.css" />
  
        
@@ -235,7 +236,7 @@ switch ($_GET['action']) {
     <script>
     function formatUrl(val,row){
     var href = '<?php echo $shop_url;?>/index.php?route=product/product&product_id='+row.product_id;
-    return '<a class="easyui-viewbutton" target="_blank" href="' + href + '"><img src="../assets/modules/ocx/images/preview.png" style="vertical-align: middle;"></a></li></ul>';
+    return '<a class="easyui-viewbutton" target="_blank" href="' + href + '"><i class="fa fa-eye" aria-hidden="true"></i></a></li></ul>';
 }
 
 </script>
@@ -257,7 +258,7 @@ switch ($_GET['action']) {
     <input id="product_id" style="line-height:26px;border:1px solid #ccc">
     <span>Name:</span>
     <input id="name" style="line-height:26px;border:1px solid #ccc">
-    <a href="#" class="easyui-linkbutton" plain="true" onclick="doSearch2()">Search</a>
+    <a href="#" class="easyui-linkbutton" plain="true" onclick="doSearch2()"><i class="fa fa-search" aria-hidden="true"></i> Search</a>
 </div>	        
 		
         <table id="gpr"  class="easyui-datagrid"
