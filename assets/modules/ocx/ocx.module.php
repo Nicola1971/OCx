@@ -287,7 +287,7 @@ switch ($_GET['action']) {
     <input id="category_id" style="line-height:26px;border:1px solid #ccc">
     <span>Name:</span>
     <input id="cname" style="line-height:26px;border:1px solid #ccc">
-    <a href="#" class="easyui-linkbutton" plain="true" onclick="doSearch3()">Search</a>
+    <a href="#" class="easyui-linkbutton" plain="true" onclick="doSearch3()"><i class="fa fa-search" aria-hidden="true"></i> Search</a>
 </div>	        
 <table id="gca"  class="easyui-datagrid"
                         url="<?php echo $moduleurl.'action=getcategories'; ?>"
@@ -309,7 +309,7 @@ switch ($_GET['action']) {
     <span>email:</span>
     <input id="email" style="line-height:26px;border:1px solid #ccc">
 
-    <a href="#" class="easyui-linkbutton" plain="true" onclick="doSearch()">Search</a>
+    <a href="#" class="easyui-linkbutton" plain="true" onclick="doSearch()"><i class="fa fa-search" aria-hidden="true"></i> Search</a>
 </div>
 		
      <table id="gor"  class="easyui-datagrid"
@@ -342,7 +342,7 @@ switch ($_GET['action']) {
     <input id="firstname" style="line-height:26px;border:1px solid #ccc">
     <span>lastname:</span>
     <input id="lastname" style="line-height:26px;border:1px solid #ccc">
-    <a href="#" class="easyui-linkbutton" plain="true" onclick="doSearch4()">Search</a>
+    <a href="#" class="easyui-linkbutton" plain="true" onclick="doSearch4()"><i class="fa fa-search" aria-hidden="true"></i> Search</a>
 </div>	        
 <table id="gcu"  class="easyui-datagrid"
                         url="<?php echo $moduleurl.'action=getcustomer'; ?>"
