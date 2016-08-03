@@ -907,7 +907,7 @@
   overflow: hidden;
 }
 .tabs-header {
-  border-width: 1px;
+  border-width: 0px;
   border-style: solid;
   border-bottom-width: 0;
   position: relative;
@@ -962,7 +962,7 @@
 }
 .tabs {
   list-style-type: none;
-  height: 26px;
+  height: 50px;
   margin: 0px;
   padding: 0px;
   padding-left: 4px;
@@ -973,7 +973,7 @@
 .tabs li {
   float: left;
   display: inline-block;
-  margin: 0 4px -1px 0;
+  margin: 0 1px -1px 0;
   padding: 0;
   position: relative;
   border: 0;
@@ -2921,8 +2921,27 @@ span.l-btn-text{
   border: solid #40c13b 1px;
   text-decoration: none;
 }
+.ocxdata {
+border-top:none;
+overflow:auto;padding:10px 0 0 0;display:none;
+}
+.ocxdata > div, .ocxdata > div > div{
+border:none;
 
-input  {
+}
+.ocxtoolbar {
+	padding:3px 5px;
+	border:0 0 1px 0;
+
+}
+.ocxtoolbar > span {
+  font-weight: bold;
+
+}
+
+.ocxtoolbar > input.searchinput  {
+line-height:25px;
+border:1px solid #ccc;
       font-size: 13px;
   -webkit-border-radius: 2px;
   -moz-border-radius: 2px;

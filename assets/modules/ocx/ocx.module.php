@@ -3,7 +3,7 @@
 /**
  * OCx
  *
- * OCx 1.7.4 Module - Open Cart Dashboard
+ * OCx 1.7.5 Module - Open Cart Dashboard
  * @author	Nicola Lambathakis
  * @category	module
  * @internal	@modx_category OCx
@@ -62,7 +62,7 @@ $remotepath = $urlparts['path'].'?'.$urlparts['query'];
 
 
 if(remote == $show_images)	{
-$oc_img_path = $shop_url . "/" . $image_folder . "/";
+$oc_img_path = $shop_url . "/" . $image_folder;
 }	
 
 if(local == $show_images)	{
@@ -247,30 +247,26 @@ switch ($_GET['action']) {
                <h1>OCx Opencart Module - Dashboard</h1>
 			<div class="right">Connected to your shop at:<a target="_blank" href="<?php echo $shop_url;?>"> <?php echo $shop_url;?></a></div>	
  <div class="sectionBody">                
-
- 
-			
-			<div id="tt" class="easyui-tabs" style="width:100%;height:100%x;">
-    
-    <div title="Products" data-options="closable:false" style="overflow:auto;padding:10px 0 0 0;display:none;">
-	<div id="toolbar2" style="padding:3px">
+<div id="tt" class="easyui-tabs" style="width:100%;height:100%x;">    
+    <div title="Products" class="ocxdata" data-options="closable:false">
+	<div class="ocxtoolbar" id="toolbar1">
     <span>Product ID:</span>
-    <input id="product_id" style="line-height:26px;border:1px solid #ccc">
+    <input class="searchinput" id="product_id" >
     <span>Name:</span>
-    <input id="name" style="line-height:26px;border:1px solid #ccc">
+    <input class="searchinput" id="name" >
     <a href="#" class="easyui-linkbutton" plain="true" onclick="doSearch2()"><i class="fa fa-search" aria-hidden="true"></i> Search</a>
 </div>	        
 		
         <table id="gpr"  class="easyui-datagrid"
                         url="<?php echo $moduleurl.'action=getproducts'; ?>"
-                        toolbar="#toolbar2" pagination="true"
+                        toolbar="#toolbar1" pagination="true"
                         rownumbers="false" fitColumns="true" singleSelect="true">
                 <thead>
                         <tr>
                         <th field="image" formatter="formatImage" width="auto">image</th> 
                         <th sortable="true" field="product_id" width="auto">product id</th>                    
                        	<th sortable="true" field="name" width="auto">name</th>
-							<th sortable="true"field="model" width="auto">model</th>
+							<th sortable="true" field="model" width="auto">model</th>
                                 <th sortable="true" field="price" width="auto">price</th>
                                 <th sortable="true" field="quantity" width="auto">quantity</th>
                                      <th sortable="true" field="date_added" width="auto">date added</th>
@@ -281,40 +277,38 @@ switch ($_GET['action']) {
                 </thead>
         </table>
     </div>
-    <div title="Categories" data-options="closable:false" style="overflow:auto;padding:10px 0 0 0;display:none;">
-<div id="toolbar3" style="padding:3px">
+    <div title="Categories" class="ocxdata" data-options="closable:false">
+<div class="ocxtoolbar" id="toolbar2">
     <span>Category ID:</span>
-    <input id="category_id" style="line-height:26px;border:1px solid #ccc">
+    <input class="searchinput" id="category_id" >
     <span>Name:</span>
-    <input id="cname" style="line-height:26px;border:1px solid #ccc">
+    <input class="searchinput" id="cname" >
     <a href="#" class="easyui-linkbutton" plain="true" onclick="doSearch3()"><i class="fa fa-search" aria-hidden="true"></i> Search</a>
 </div>	        
 <table id="gca"  class="easyui-datagrid"
                         url="<?php echo $moduleurl.'action=getcategories'; ?>"
-                        toolbar="#toolbar3" pagination="true"
+                        toolbar="#toolbar2" pagination="true"
                         rownumbers="true" fitColumns="true" singleSelect="true">
                 <thead>
                         <tr>
-                            <th sortable="true"field="category_id" width="auto">category id</th>   
-							<th sortable="true"field="name" width="20">name</th>
+                            <th sortable="true" field="category_id" width="auto">category id</th>   
+							<th sortable="true" field="name" width="20">name</th>
                         </tr>
                 </thead>
         </table>
     </div>
-<div title="Orders" style="padding:10px 0 0 0;display:none;">
-		
-				<div id="#toolbar1" style="padding:3px">
-	    <span>Order ID:</span>
-    <input id="order_id" style="line-height:26px;border:1px solid #ccc">
+<div title="Orders" class="ocxdata" data-options="closable:false">		
+<div class="ocxtoolbar" id="toolbar3">
+	 <span>Order ID:</span>
+    <input class="searchinput" id="order_id" >
     <span>email:</span>
-    <input id="email" style="line-height:26px;border:1px solid #ccc">
-
+    <input class="searchinput" id="email" >
     <a href="#" class="easyui-linkbutton" plain="true" onclick="doSearch()"><i class="fa fa-search" aria-hidden="true"></i> Search</a>
 </div>
 		
-     <table id="gor"  class="easyui-datagrid"
+<table id="gor"  class="easyui-datagrid"
                         url="<?php echo $moduleurl.'action=getorders'; ?>"
-                        toolbar="#toolbar1" pagination="true"
+                        toolbar="#toolbar3" pagination="true"
                         rownumbers="true" fitColumns="true" singleSelect="true">
                 <thead>
                         <tr>
@@ -336,12 +330,12 @@ switch ($_GET['action']) {
                 </thead>
         </table>
     </div>
-<div title="Customers" data-options="closable:false" style="overflow:auto;padding:10px 0 0 0;display:none;">
-<div id="toolbar4" style="padding:3px">
-    <span>firstname:</span>
-    <input id="firstname" style="line-height:26px;border:1px solid #ccc">
-    <span>lastname:</span>
-    <input id="lastname" style="line-height:26px;border:1px solid #ccc">
+<div title="Customers" class="ocxdata" data-options="closable:false">
+<div class="ocxtoolbar" id="toolbar4">
+    <span>Firstname:</span>
+    <input class="searchinput" id="firstname" >
+    <span>Lastname:</span>
+    <input class="searchinput" id="lastname" >
     <a href="#" class="easyui-linkbutton" plain="true" onclick="doSearch4()"><i class="fa fa-search" aria-hidden="true"></i> Search</a>
 </div>	        
 <table id="gcu"  class="easyui-datagrid"
@@ -350,11 +344,11 @@ switch ($_GET['action']) {
                         rownumbers="true" fitColumns="true" singleSelect="true">
                 <thead>
                         <tr>
-                            <th sortable="true"field="customer_id" width="auto">customer id</th>   
-							<th sortable="true"field="firstname" width="auto">firstname</th>
-							<th sortable="true"field="lastname" width="auto">lastname</th>
-							<th sortable="true"field="email" width="auto">email</th>
-							<th sortable="true"field="telephone" width="auto">telephone</th>
+                            <th sortable="true" field="customer_id" width="auto">customer id</th>   
+							<th sortable="true" field="firstname" width="auto">firstname</th>
+							<th sortable="true" field="lastname" width="auto">lastname</th>
+							<th sortable="true" field="email" width="auto">email</th>
+							<th sortable="true" field="telephone" width="auto">telephone</th>
 							<th sortable="true" field="date_added" width="auto">date added</th>
 							<th sortable="true" field="ip" width="auto">ip</th>
                         </tr>
@@ -363,7 +357,7 @@ switch ($_GET['action']) {
     </div>
 </div>
 <div>	
-<div style="float:right">OCx 1.7.4 </div>	
+<div style="float:right">OCx 1.7.5 </div>	
 </div>							
 </div>
 	
