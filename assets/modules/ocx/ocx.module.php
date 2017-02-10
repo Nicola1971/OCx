@@ -226,7 +226,7 @@ jQuery(document).ready(function ($) {
 .firstColumn {width:100px}
 .codeColumn {min-width:350px!important}
 .codeColumn2 {min-width:350px; margin-right:3px;}
-textarea {font-size:11px}
+textarea {font-size:11px; border:dotted 1px #3697CD;}
 .actionBar li {list-style-type: none; list-style-image:none;}
 </style>
 </head>
