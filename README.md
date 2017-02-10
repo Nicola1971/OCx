@@ -1,4 +1,4 @@
-# OCx RC 1.7.5
+# OCx RC 1.8
 Display Opencart products and categories in MODX Evolution
 
 http://www.tattoocms.it/extras/snippets/ocx-opencart-modx-evolution.html
@@ -25,7 +25,7 @@ http://www.tattoocms.it/extras/snippets/ocx-opencart-modx-evolution.html
 * Display and search categories inside MODX Manager
 * Display and search customers inside MODX Manager
 
-![ocx](https://raw.githubusercontent.com/Nicola1971/training-materials/master/Images/ocx/ocx-module-products.jpg)
+![ocx](https://raw.githubusercontent.com/Nicola1971/training-materials/53b83c03ef184dbe21a6e9c2a05f7d96534de0bd/Images/ocx18.png)
 
 
 
