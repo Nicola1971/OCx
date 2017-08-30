@@ -1,5 +1,5 @@
 # OCx 1.9
-Display Opencart products and categories in Evolution CMS
+Display Opencart products and categories in Evolution CMS 1.3.x
 
 http://www.tattoocms.it/extras/modules/ocx-opencart-evolution.html
 
