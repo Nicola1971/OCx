@@ -95,7 +95,7 @@ $remotepath = $urlparts['path'].'?'.$urlparts['query'];
     //is it a valid image?
     if(false == $img_info || !isset($img_info[2]) || !($img_info[2] == IMAGETYPE_JPEG || $img_info[2] == IMAGETYPE_PNG || $img_info[2] == IMAGETYPE_JPEG2000 || $img_info[2] == IMAGETYPE_GIF)) {
         if(true == $debug)
-            echo 'The image doesn\'t seem to exist in the remote server';
+            echo 'The image '.$img_url.' doesn\'t seem to exist in the remote server';
         return ''; //return empty string
     }
  
