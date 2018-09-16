@@ -3,7 +3,7 @@
 /**
  * OCx
  *
- * OCx 1.9 Module - Open Cart Dashboard
+ * OCx 1.9.1 Module - Open Cart Dashboard
  * @author	Nicola Lambathakis
  * @category	module
  * @internal	@modx_category OCx
@@ -16,7 +16,10 @@
 &oc_db_hostname=db_hostname;string;localhost &oc_db_username=db_username;string;root &oc_db_password=db_password;string &oc_db_database=db_databas;string;opencart2 &oc_shop_url= Opencart url;string;http://localhost/opencart2 &oc_image_folder=Opencart images folder;string;image/ &oc_show_images=Show products images;list;remote,local;remote &oc_shop_lang=shop language ID;string;1 &oc_amazon=amazon;string;amazon.it &oc_affiliate_amazon_tag=amazon affiliate tag;string;yourtag-21
  * */
 
-if (!defined('IN_MANAGER_MODE') || (defined('IN_MANAGER_MODE') && (!IN_MANAGER_MODE || IN_MANAGER_MODE == 'false'))) die();
+
+if (IN_MANAGER_MODE != 'true') {
+	die('<h1>ERROR:</h1><p>Please use the MODx Content Manager instead of accessing this file directly.</p>');
+}
 
 global $modx;
 global $manager_theme;
