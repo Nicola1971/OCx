@@ -1,21 +1,20 @@
 /**
      * OCxRelated
      *
-	 * Display Open Cart related products in MODX Evolution
+	 * Display Open Cart related products in Evolution CMS
      *
      * @author      Author: Nicola Lambathakis http://www.tattoocms.it/
-     * @version 1.7.3
+     * @version 1.9.1
      * @internal	@modx_category OCx
  * @license 	http://www.gnu.org/copyleft/gpl.html GNU Public License (GPL)
  */
  
 <?php
 /** 
-    OCxRelated 1.7.3
+    OCxRelated 1.9.1
     Sample call
 [[OCxRelated? &keyword=`macbook` &opencartTpl=`opencartTpl` &limit=`50` &fetchimages=`0` &orderby=`price` &orderdir=`DESC` &store_dir=`assets/images/ocx`]]
 */
-if(!defined('MODX_BASE_PATH')){die('What are you doing? Get out of here!');}
 /*define snippet params*/
 $opencartTpl = (isset($opencartTpl)) ? $opencartTpl : 'opencartTpl';
 $keyword = (isset($keyword)) ? $keyword : '';
@@ -74,7 +73,15 @@ while($row0 = mysqli_fetch_array( $result0 )) {
 	$flat_description = strip_tags($description);
 	$short_description = substrwords($flat_description,$trim);
 	$remote_image = "$oc_shop_url/$oc_image_folder$image";
-	
+
+	if($convert == '1') {
+		$d1_image = mb_convert_encoding($image, 'HTML-ENTITIES', $charset);
+		$d_image = html_entity_decode($d1_image);
+	}
+	else  {
+	     $d_image = $image;
+	}
+	$remote_image = "$oc_shop_url/$oc_image_folder$d_image";
 	if($fetchimages == '0') {
 	$oc_image = $remote_image;
 	}
@@ -116,7 +123,7 @@ $buy_from_amazon = "http://www.$oc_amazon/dp/$isbn?tag=$oc_affiliate_amazon_tag"
 
 // parse the chunk and replace the placeholder values.
 // note that the values need to be in an array with the format placeholderName => placeholderValue
-$values = array('ocimage' => $oc_image, 'ocid' => $id, 'ocname' => $d_name, 'ocdescription' => $d_description, 'ocshort_description' => $d_short_description, 'ocprice' => $price, 'ocmodel' => $model,'ocquantity' => $quantity,'ocviewed' => $viewed, 'ocspprice' => $spprice, 'ocalias' => $keyword, 'ocshop_url' => $oc_shop_url, 'ocproduct_url' => $product_url, 'ocproduct_alias_url' => $d_product_alias_url, 'buy_from_amazon' => $buy_from_amazon);
+$values = array('ocimage' => $oc_image, 'ocremoteimage' => $oc_remoteimage, 'ocid' => $id, 'ocname' => $d_name, 'ocdescription' => $d_description, 'ocshort_description' => $d_short_description, 'ocprice' => $price, 'ocmodel' => $model,'ocquantity' => $quantity,'ocviewed' => $viewed, 'ocspprice' => $spprice, 'ocalias' => $keyword, 'ocshop_url' => $oc_shop_url, 'ocproduct_url' => $product_url, 'ocproduct_alias_url' => $d_product_alias_url, 'buy_from_amazon' => $buy_from_amazon);
 
 //   
 $output =  $output . $modx->parseChunk($opencartTpl, $values, '[+', '+]');
